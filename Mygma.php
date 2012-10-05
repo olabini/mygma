@@ -7,7 +7,7 @@
 # - Add CSS settings in MediaWiki:Common.css
 # - Enjoy
 
-$pygmentize_path = '/home/ioke.org/pygments/pygmentize';
+$pygmentize_path = '/usr/bin/pygmentize';
 
 $wgExtensionCredits['parserhook']['Mygma'] = array(
 	'path'           => __FILE__,
@@ -22,14 +22,14 @@ if ( defined( 'MW_SUPPORTS_PARSERFIRSTCALLINIT' ) ) {
 } else {
 	$wgExtensionFunctions[] = 'MygmaParserInit';
 }
- 
+
 function MygmaParserInit() {
 	global $wgParser;
 	$wgParser->setHook( 'source', 'MygmaRender' );
 	return true;
 }
- 
-function MygmaRender( $input, $args = array(), $parser, $frame ) {
+
+function MygmaRender( $input, $args = array(), $parser ) {
     global $pygmentize_path;
     if( isset( $args['lang'] ) && $args['lang'] ) {
         $lang = '-l ' . escapeshellarg($args['lang']) . ' ';
